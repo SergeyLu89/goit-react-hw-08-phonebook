@@ -1,4 +1,5 @@
 import React from 'react';
+import css from './RegisterPage.module.css';
 import { useDispatch } from 'react-redux';
 import { registerThunk } from 'redux/auth/auth.reducer';
 
@@ -17,15 +18,16 @@ export const RegisterPage = () => {
       email,
       password,
     };
-    console.log('Form Data', formData);
+
     dispatch(registerThunk(formData));
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className={css.loginForm}>
       <label>
-        <p>Name:</p>
+        <p className={css.labelDescr}>Name:</p>
         <input
+          className={css.formInput}
           type="text"
           placeholder="Taras Shevchenko"
           required
@@ -33,8 +35,9 @@ export const RegisterPage = () => {
         />
       </label>
       <label>
-        <p>Email:</p>
+        <p className={css.labelDescr}>Email:</p>
         <input
+          className={css.formInput}
           type="email"
           placeholder="myemail@mail.com"
           required
@@ -42,8 +45,9 @@ export const RegisterPage = () => {
         />
       </label>
       <label>
-        <p>Password:</p>
+        <p className={css.labelDescr}>Password:</p>
         <input
+          className={css.formInput}
           type="password"
           placeholder="*******"
           required
@@ -51,7 +55,9 @@ export const RegisterPage = () => {
         />
       </label>
       <br />
-      <button type="submit">Sign Up</button>
+      <button type="submit" className={css.formButton}>
+        Sign Up
+      </button>
     </form>
   );
 };

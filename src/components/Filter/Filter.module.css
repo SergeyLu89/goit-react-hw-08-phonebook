@@ -1,10 +1,12 @@
-.label {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 12px 0;
-  width: 90%;
-  color: #fdfdff;
+.filterInputDescr {
   font-size: 16px;
-  margin-right: auto;
+  margin-bottom: 4px;
+}
+.filterInput {
+  height: 24px;
+  width: 220px;
+  border-radius: 4px;
+  border: none;
+  background-color: beige;
+  margin-bottom: 18px;
 }

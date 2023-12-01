@@ -11,9 +11,10 @@ export function Filter() {
   };
 
   return (
-    <label className={css.label}>
-      Find contact by name
+    <label>
+      <p className={css.filterInputDescr}>Find contact by name</p>
       <input
+        className={css.filterInput}
         onChange={onInputChange}
         type="text"
         name="filter"

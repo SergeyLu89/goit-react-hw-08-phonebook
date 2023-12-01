@@ -1,15 +1,17 @@
 import React from 'react';
+import css from './HomePage.module.css';
 
 export const HomePage = () => {
   return (
     <div>
-      <h1>
-        Welcome to the <span>phone book &reg; </span>{' '}
+      <h1 className={css.homePageTitle}>
+        Welcome to the{' '}
+        <span className={css.homePageTitleAccent}>phone book</span>{' '}
       </h1>
-      <p>
-        It is a reliable assistant in everyday life. Manage your network of
-        contacts to always be in touch with people important to you.
-      </p>
+      <h3>
+        It is a reliable assistant in everyday life. <br /> Manage your network
+        of contacts to always be in touch with people important to you.
+      </h3>
     </div>
   );
 };

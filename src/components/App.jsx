@@ -49,7 +49,6 @@ export const App = () => {
     dispatch(refreshThunk());
   }, [dispatch]);
   return (
-    // <div className={css.section}>
     <div>
       <Layout>
         <Routes>

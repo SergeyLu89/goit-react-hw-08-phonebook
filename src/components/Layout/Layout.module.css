@@ -1,0 +1,55 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: beige;
+  width: 500px;
+  background-color: darkgray;
+  margin: 32px auto;
+  min-height: 85vh;
+  border-radius: 8px;
+  padding: 10px;
+  background-image: url(https://i.pinimg.com/1200x/85/ec/df/85ecdf1c3611ecc9b7fa85282d9526e0.jpg);
+  background-size: cover;
+}
+.header {
+  padding-top: 12px;
+  padding-bottom: 18px;
+}
+.navList {
+  display: flex;
+  width: 500px;
+  align-items: center;
+  justify-content: space-around;
+}
+.headerLink {
+  display: block;
+  font-size: 24px;
+  background-color: transparent;
+  border: 1px solid beige;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+.active {
+  display: block;
+  font-size: 24px;
+  background-color: gray;
+  border: 1px solid beige;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+.formButton {
+  background-color: transparent;
+  color: beige;
+  border: 1px solid beige;
+  border-radius: 4px;
+  font-size: 20px;
+}
+.formButton:hover,
+.formButton:focus {
+  background-color: darkgray;
+}
+
+.navDescr {
+  font-size: 16px;
+}

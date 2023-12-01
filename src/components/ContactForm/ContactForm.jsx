@@ -37,11 +37,12 @@ export const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={onSubmitBtnClick} className={css.form}>
-      <label className={css.label}>
-        Name
+    <form onSubmit={onSubmitBtnClick} className={css.loginForm}>
+      <label>
+        <p className={css.labelDescr}>Name</p>
+
         <input
-          className={css.forminput}
+          className={css.formInput}
           type="text"
           name="name"
           placeholder="Enter contact name"
@@ -50,10 +51,11 @@ export const ContactForm = () => {
           required
         />
       </label>
-      <label className={css.label}>
-        Number
+      <label>
+        <p className={css.labelDescr}>Number</p>
+
         <input
-          className={css.forminput}
+          className={css.formInput}
           type="tel"
           name="number"
           placeholder="Enter contact number"
@@ -63,7 +65,9 @@ export const ContactForm = () => {
         />
       </label>
 
-      <button type="submit">Add contact</button>
+      <button type="submit" className={css.formButton}>
+        Add contact
+      </button>
     </form>
   );
 };

@@ -1,0 +1,9 @@
+.homePageTitle {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 34px;
+}
+.homePageTitleAccent {
+  color: lightsteelblue;
+  font-style: italic;
+}

@@ -22,6 +22,7 @@ export const ContactList = () => {
             </p>
 
             <button
+              className={css.formButton}
               type="button"
               onClick={() => {
                 onDeleteBtnClick(contact.id);
