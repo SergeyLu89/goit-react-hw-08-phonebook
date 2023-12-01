@@ -1,23 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import css from './ContactList.module.css';
-import {
-  createFetchContacts,
-  deleteContact,
-} from 'redux/contacts/contacts.reducer';
-import { selectVisibleContacts } from 'redux/selectors';
-import { useEffect } from 'react';
+import { deleteContactThunk } from 'redux/contacts/contacts.reducer';
+
+import { selectVisibleContacts } from 'redux/contacts/contacts.selectors';
 
 export const ContactList = () => {
   const filteredContacts = useSelector(selectVisibleContacts);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(createFetchContacts());
-  }, [dispatch]);
-
   const onDeleteBtnClick = id => {
-    dispatch(deleteContact(id));
+    dispatch(deleteContactThunk(id));
   };
 
   return (

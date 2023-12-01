@@ -1,39 +1,43 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { addNewContact, fechDeleteContact, fetchContacts } from 'redux/api';
+import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { BASE_URL } from 'components/constants/routes';
+import axios from 'axios';
 
-export const createFetchContacts = createAsyncThunk(
-  'contacts/fetchContacts',
-  async (_, { rejectWidthValue }) => {
+axios.defaults.baseURL = BASE_URL;
+
+export const fetchContactsThunk = createAsyncThunk(
+  'contacts/getAll',
+  async (_, thunkApi) => {
     try {
-      const contact = await fetchContacts();
-      return contact;
+      const { data } = await axios.get('/contacts');
+
+      return data;
     } catch (err) {
-      return rejectWidthValue(err);
+      return thunkApi.rejectWithValue(err.message);
     }
   }
 );
 
-export const deleteContact = createAsyncThunk(
-  'contacts/deleteContact',
-  async (id, { rejectWidthValue }) => {
+export const addContacThunk = createAsyncThunk(
+  'contacts/add',
+  async (formData, thunkApi) => {
     try {
-      const contact = await fechDeleteContact(id);
-      return contact;
+      const { data } = await axios.post('/contacts', formData);
+
+      return data;
     } catch (err) {
-      return rejectWidthValue(err);
+      return thunkApi.rejectWithValue(err.message);
     }
   }
 );
 
-export const newContact = createAsyncThunk(
-  'contacts/newContact',
-  async (Param, { rejectWidthValue }) => {
+export const deleteContactThunk = createAsyncThunk(
+  'contacts/delete',
+  async (contactId, thunkApi) => {
     try {
-      const contact = await addNewContact(Param);
-      return contact;
+      const { data } = await axios.delete(`/contacts/${contactId}`);
+      return data;
     } catch (err) {
-      return rejectWidthValue(err);
+      return thunkApi.rejectWithValue(err.message);
     }
   }
 );
@@ -45,38 +49,46 @@ const initialState = {
 };
 
 const contactsSlice = createSlice({
-  name: 'contact',
-
+  name: 'contacts',
   initialState,
-
-  reducers: {},
-  extraReducers: builder => {
+  extraReducers: builder =>
     builder
-      .addCase(createFetchContacts.pending, state => {
-        state.isLoading = true;
-      })
-      .addCase(createFetchContacts.fulfilled, (state, action) => {
+      .addCase(fetchContactsThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.contacts = action.payload;
-        state.error = null;
+        state.contacts = payload;
       })
-      .addCase(createFetchContacts.rejected, (state, action) => {
+      .addCase(addContacThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.contacts = [...state.contacts, payload];
       })
-      .addCase(deleteContact.fulfilled, (state, action) => {
-        const index = state.contacts.findIndex(
-          el => el.id === action.payload.id
+      .addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.contacts = state.contacts.filter(
+          contact => contact.id !== payload.id
         );
-        state.contacts.splice(index, 1);
       })
-      .addCase(deleteContact.rejected, (state, action) => {
-        state.error = action.payload;
-      })
-      .addCase(newContact.fulfilled, (state, action) => {
-        state.contacts.push(action.payload);
-      });
-  },
+      .addMatcher(
+        isAnyOf(
+          fetchContactsThunk.pending,
+          addContacThunk.pending,
+          deleteContactThunk.pending
+        ),
+        state => {
+          state.isLoading = true;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchContactsThunk.rejected,
+          addContacThunk.rejected,
+          deleteContactThunk.rejected
+        ),
+        (state, { payload }) => {
+          state.isLoading = false;
+          state.error = payload;
+        }
+      ),
 });
 
 export const contactsReducer = contactsSlice.reducer;

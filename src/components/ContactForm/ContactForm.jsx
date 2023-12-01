@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid';
 import css from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { newContact } from 'redux/contacts/contacts.reducer';
-import { selectContacts } from 'redux/selectors';
+import { addContacThunk } from 'redux/contacts/contacts.reducer';
+import { selectContacts } from 'redux/contacts/contacts.selectors';
 
 export const ContactForm = () => {
   const contacts = useSelector(selectContacts);
@@ -17,7 +17,7 @@ export const ContactForm = () => {
       return;
     }
 
-    dispatch(newContact(userData));
+    dispatch(addContacThunk(userData));
   };
 
   const onSubmitBtnClick = event => {
